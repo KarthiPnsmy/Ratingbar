@@ -27,16 +27,16 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 
 // This proxy can be created by calling Ratingbar.createExample({message: "hello world"})
 @Kroll.proxy(creatableInModule=RatingbarModule.class)
-public class ExampleProxy extends TiViewProxy
+public class RatingBarProxy extends TiViewProxy
 {
-	private int rating;
+	private float rating;
 	private int stars;
 	private boolean isIndicator;
 	private String style;
 	private float stepSize;
 	// Standard Debugging variables
 	private boolean hasListenerChange = false;
-	private static final String TAG = "ExampleProxy";
+	private static final String TAG = "RatingBarProxy";
 	RatingBar rb1;
 	
 	private class ExampleView extends TiUIView
@@ -84,7 +84,7 @@ public class ExampleProxy extends TiViewProxy
 	}
 
 	// Constructor
-	public ExampleProxy()
+	public RatingBarProxy()
 	{
 		super();
 	}
@@ -106,14 +106,13 @@ public class ExampleProxy extends TiViewProxy
 
 		if (options.containsKey("rating")) {
 			Log.d("@@##", "obj rating vale = "+options.get("rating"));
-			rating = (Integer) options.get("rating");
+			rating = options.getDouble("rating").floatValue();
 		}
 		
 		if (options.containsKey("stars")) {
 			Log.d("@@##", "obj stars vale = "+options.get("stars"));
-			stars = (Integer) options.get("stars");
+			stars =options.getInt("stars");
 		}
-		
 		if (options.containsKey("isIndicator")) {
 			Log.d("@@##", "obj isIndicator vale = "+options.getBoolean("isIndicator"));
 			isIndicator = (Boolean) options.getBoolean("isIndicator");
@@ -126,7 +125,7 @@ public class ExampleProxy extends TiViewProxy
 		
 		if (options.containsKey("stepSize")) {
 			Log.d("@@##", "obj2 stepSize vale = "+options.get("stepSize"));
-			stepSize = Float.parseFloat(options.getString("stepSize"));
+			stepSize = options.getDouble("stepSize").floatValue();
 		}
 		
 		
@@ -136,20 +135,15 @@ public class ExampleProxy extends TiViewProxy
 	}
 	
 	// Methods
-	@Kroll.method
-	public void printMessage(String message)
-	{
-		Log.d(TAG, "printing message: " + message);
-	}
 
 	@Kroll.setProperty @Kroll.method
-	public void setRating(int val)
+	public void setRating(float val)
 	{
 		rating = val;
 	}
 
 	@Kroll.getProperty @Kroll.method
-	public int getRating()
+	public float getRating()
 	{
 		return rating;
 	}
@@ -198,21 +192,9 @@ public class ExampleProxy extends TiViewProxy
 	}
 
 	@Kroll.getProperty @Kroll.method
-	public double getStepSize()
+	public float getStepSize()
 	{
 		return stepSize;
 	}
 	
-	
-	@Kroll.getProperty @Kroll.method
-	public String getMessage()
-	{
-        return "Hello World from my module";
-	}
-
-	@Kroll.setProperty @Kroll.method
-	public void setMessage(String message)
-	{
-	    Log.d(TAG, "Tried setting module message to: " + message);
-	}
 }
