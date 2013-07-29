@@ -33,7 +33,7 @@ public class ExampleProxy extends TiViewProxy
 	private int stars;
 	private boolean isIndicator;
 	private String style;
-	//private double stepSize;
+	private float stepSize;
 	// Standard Debugging variables
 	private boolean hasListenerChange = false;
 	private static final String TAG = "ExampleProxy";
@@ -44,7 +44,7 @@ public class ExampleProxy extends TiViewProxy
 		public ExampleView(final TiViewProxy proxy) {
 			super(proxy);
 			hasListenerChange = proxy.hasListeners("change");
-			if(style.equalsIgnoreCase("small")){
+			if(style != null && style.equalsIgnoreCase("small")){
 				rb1 = new RatingBar(proxy.getActivity(), null, 16842877);
 			}else{
 				rb1 = new RatingBar(proxy.getActivity());
@@ -55,7 +55,7 @@ public class ExampleProxy extends TiViewProxy
 			rb1.setIsIndicator(isIndicator);
 			rb1.setFocusable(false);
 			//Log.d("@@##", "rb stepSize = "+stepSize);
-			//rb1.setStepSize((float) stepSize);
+			rb1.setStepSize(stepSize);
 			
 			rb1.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
@@ -123,12 +123,12 @@ public class ExampleProxy extends TiViewProxy
 			Log.d("@@##", "obj style vale = "+options.getString("style"));
 			style = (String) options.getString("style");
 		}
-		/*
+		
 		if (options.containsKey("stepSize")) {
-			Log.d("@@##", "obj2 stepSize vale = "+options.getDouble("stepSize"));
-			stepSize = (Double) options.get("stepSize");
+			Log.d("@@##", "obj2 stepSize vale = "+options.get("stepSize"));
+			stepSize = Float.parseFloat(options.getString("stepSize"));
 		}
-		*/
+		
 		
 		if (options.containsKey("message")) {
 			Log.d(TAG, "example created with message: " + options.get("message"));
@@ -190,9 +190,9 @@ public class ExampleProxy extends TiViewProxy
 	{
 		return style;
 	}
-	/*
+	
 	@Kroll.setProperty @Kroll.method
-	public void setStepSize(double val)
+	public void setStepSize(float val)
 	{
 		stepSize = val;
 	}
@@ -202,7 +202,7 @@ public class ExampleProxy extends TiViewProxy
 	{
 		return stepSize;
 	}
-	*/
+	
 	
 	@Kroll.getProperty @Kroll.method
 	public String getMessage()
