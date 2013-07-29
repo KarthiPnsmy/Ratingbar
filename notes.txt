@@ -1,0 +1,54 @@
+// This is a test harness for your module
+// You should do something interesting in this harness 
+// to test out the module and to provide instructions 
+// to users on how to use it by example.
+
+
+// open a single window
+var win = Ti.UI.createWindow({
+	backgroundColor:'white'
+});
+var label = Ti.UI.createLabel();
+win.add(label);
+win.open();
+
+// TODO: write your module tests here
+var ratingbar = require('titutorial.ratingbar');
+Ti.API.info("module is => " + ratingbar);
+
+label.text = ratingbar.example();
+
+Ti.API.info("module exampleProp is => " + ratingbar.exampleProp);
+ratingbar.exampleProp = "This is a test value";
+
+if (Ti.Platform.name == "android") {
+	var rbar = ratingbar.createRatingBar({
+		/*
+		rating:2.0,
+		stars:6,
+		isIndicator:false,
+		stepSize:2.0,
+		style:"big"
+		*/
+	});
+	
+	/*
+	rbar.rating = 3.0;
+	rbar.stars = 6;
+	rbar.stepSize = 1.0;
+	rbar.style = "big";
+	*/
+	rbar.setRating("3");
+	rbar.setStars("6");
+	rbar.setStepSize("1");
+	rbar.setStyle("small");
+	rbar.setIsIndicator(true);
+	
+	
+	rbar.addEventListener('change', function(e) {
+		Ti.App.fireEvent('app:change = '+e.rating);
+	});
+	
+	win.add(rbar);
+}
+

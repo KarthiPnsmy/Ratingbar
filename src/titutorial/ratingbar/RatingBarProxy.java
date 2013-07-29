@@ -29,15 +29,15 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 @Kroll.proxy(creatableInModule=RatingbarModule.class)
 public class RatingBarProxy extends TiViewProxy
 {
-	private float rating;
-	private int stars;
-	private boolean isIndicator;
-	private String style;
-	private float stepSize;
+	private float rating = (float) 2.0;
+	private int stars = 5;
+	private boolean isIndicator = false;
+	private String style = "big";
+	private float stepSize = (float) 1.0;
 	// Standard Debugging variables
 	private boolean hasListenerChange = false;
 	private static final String TAG = "RatingBarProxy";
-	RatingBar rb1;
+	RatingBar ratingBar;
 	
 	private class ExampleView extends TiUIView
 	{
@@ -45,19 +45,17 @@ public class RatingBarProxy extends TiViewProxy
 			super(proxy);
 			hasListenerChange = proxy.hasListeners("change");
 			if(style != null && style.equalsIgnoreCase("small")){
-				rb1 = new RatingBar(proxy.getActivity(), null, 16842877);
+				ratingBar = new RatingBar(proxy.getActivity(), null, 16842877);
 			}else{
-				rb1 = new RatingBar(proxy.getActivity());
+				ratingBar = new RatingBar(proxy.getActivity());
 			}
 				
-			rb1.setRating(rating);
-			rb1.setNumStars(stars);
-			rb1.setIsIndicator(isIndicator);
-			rb1.setFocusable(false);
-			//Log.d("@@##", "rb stepSize = "+stepSize);
-			rb1.setStepSize(stepSize);
+			ratingBar.setRating(rating);
+			ratingBar.setNumStars(stars);
+			ratingBar.setIsIndicator(isIndicator);
+			ratingBar.setStepSize(stepSize);
 			
-			rb1.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+			ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
 				@SuppressWarnings("deprecation")
 				public void onRatingChanged(RatingBar ratingBar, float rating,	boolean fromUser) {
@@ -66,13 +64,13 @@ public class RatingBarProxy extends TiViewProxy
 						props.put("rating", rating);
 						proxy.fireEvent("change", props);
 					}
-					Log.d("rating", "rating vale = "+rating);
+					Log.d("rating", "rating value = "+rating);
 
 				}
 			});
 			
 			RelativeLayout relativeLayout = new RelativeLayout(proxy.getActivity());
-			relativeLayout.addView(rb1);
+			relativeLayout.addView(ratingBar);
 			setNativeView(relativeLayout);
 		}
 
@@ -127,11 +125,6 @@ public class RatingBarProxy extends TiViewProxy
 			Log.d("@@##", "obj2 stepSize vale = "+options.get("stepSize"));
 			stepSize = options.getDouble("stepSize").floatValue();
 		}
-		
-		
-		if (options.containsKey("message")) {
-			Log.d(TAG, "example created with message: " + options.get("message"));
-		}
 	}
 	
 	// Methods
@@ -159,7 +152,6 @@ public class RatingBarProxy extends TiViewProxy
 	{
 		return isIndicator;
 	}
-	
 
 	@Kroll.setProperty @Kroll.method
 	public void setStars(int val)
