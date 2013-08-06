@@ -20,15 +20,16 @@ import org.appcelerator.titanium.view.TiCompositeLayout.LayoutArrangement;
 import org.appcelerator.titanium.view.TiUIView;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 
-
 // This proxy can be created by calling Ratingbar.createExample({message: "hello world"})
-@Kroll.proxy(creatableInModule=RatingbarModule.class)
-public class RatingBarProxy extends TiViewProxy
-{
+@Kroll.proxy(creatableInModule = RatingbarModule.class)
+public class RatingBarProxy extends TiViewProxy {
 	private float rating = (float) 2.0;
 	private int stars = 5;
 	private boolean isIndicator = false;
@@ -38,155 +39,168 @@ public class RatingBarProxy extends TiViewProxy
 	private boolean hasListenerChange = false;
 	private static final String TAG = "RatingBarProxy";
 	RatingBar ratingBar;
-	
-	private class ExampleView extends TiUIView
-	{
+
+	private class ExampleView extends TiUIView {
 		public ExampleView(final TiViewProxy proxy) {
 			super(proxy);
 			hasListenerChange = proxy.hasListeners("change");
-			if(style != null && style.equalsIgnoreCase("small")){
+			/*
+			if (style != null && style.equalsIgnoreCase("small")) {
 				ratingBar = new RatingBar(proxy.getActivity(), null, 16842877);
-			}else{
+			} else {
 				ratingBar = new RatingBar(proxy.getActivity());
 			}
-				
+			*/
+			String packageName = proxy.getActivity().getPackageName();
+			Resources resources = proxy.getActivity().getResources();
+			View raingBarWrapper;
+			int resId_raingBarHolder = -1;
+			int resId_ratingBar = -1;
+
+			System.out.println("raingBarWrapper 1rresId_raingBarHolder =" + resId_raingBarHolder);
+			resId_raingBarHolder = resources.getIdentifier("raingbar_layout", "layout", packageName);
+			resId_ratingBar = resources.getIdentifier("ratingbar_default","id", packageName);
+			System.out.println("raingBarWrapper resId_raingBarHolder =" + resId_raingBarHolder);
+			System.out.println("raingBarWrapper resId_ratingBar = " + resId_ratingBar);
+
+			LayoutInflater inflater = LayoutInflater.from(getActivity());
+			raingBarWrapper = inflater.inflate(resId_raingBarHolder, null);
+			ratingBar = (RatingBar) raingBarWrapper.findViewById(resId_ratingBar);
+			setNativeView(raingBarWrapper);
+
 			ratingBar.setRating(rating);
 			ratingBar.setNumStars(stars);
 			ratingBar.setIsIndicator(isIndicator);
 			ratingBar.setStepSize(stepSize);
-			
+
 			ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
-				@SuppressWarnings("deprecation")
-				public void onRatingChanged(RatingBar ratingBar, float rating,	boolean fromUser) {
-					if(hasListenerChange){
-						KrollDict props = new KrollDict();
-						props.put("rating", rating);
-						proxy.fireEvent("change", props);
+					@SuppressWarnings("deprecation")
+					public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+						if (hasListenerChange) {
+							KrollDict props = new KrollDict();
+							props.put("rating", rating);
+							proxy.fireEvent("change", props);
+						}
+						Log.d("rating", "rating value = " + rating);
 					}
-					Log.d("rating", "rating value = "+rating);
-
-				}
 			});
-			
-			RelativeLayout relativeLayout = new RelativeLayout(proxy.getActivity());
-			relativeLayout.addView(ratingBar);
-			setNativeView(relativeLayout);
+			setNativeView(raingBarWrapper);
 		}
 
 		@Override
-		public void processProperties(KrollDict d)
-		{
+		public void processProperties(KrollDict d) {
 			super.processProperties(d);
 		}
 	}
 
 	// Constructor
-	public RatingBarProxy()
-	{
+	public RatingBarProxy() {
 		super();
 	}
 
 	@Override
-	public TiUIView createView(Activity activity)
-	{
+	public TiUIView createView(Activity activity) {
 		TiUIView view = new ExampleView(this);
+		/*
 		view.getLayoutParams().autoFillsHeight = true;
 		view.getLayoutParams().autoFillsWidth = true;
+		*/
 		return view;
 	}
 
 	// Handle creation options
 	@Override
-	public void handleCreationDict(KrollDict options)
-	{
+	public void handleCreationDict(KrollDict options) {
 		super.handleCreationDict(options);
 
 		if (options.containsKey("rating")) {
-			Log.d("@@##", "obj rating vale = "+options.get("rating"));
+			Log.d("@@##", "obj rating vale = " + options.get("rating"));
 			rating = options.getDouble("rating").floatValue();
 		}
-		
+
 		if (options.containsKey("stars")) {
-			Log.d("@@##", "obj stars vale = "+options.get("stars"));
-			stars =options.getInt("stars");
+			Log.d("@@##", "obj stars vale = " + options.get("stars"));
+			stars = options.getInt("stars");
 		}
 		if (options.containsKey("isIndicator")) {
-			Log.d("@@##", "obj isIndicator vale = "+options.getBoolean("isIndicator"));
+			Log.d("@@##",
+					"obj isIndicator vale = "
+							+ options.getBoolean("isIndicator"));
 			isIndicator = (Boolean) options.getBoolean("isIndicator");
 		}
-		
+
 		if (options.containsKey("style")) {
-			Log.d("@@##", "obj style vale = "+options.getString("style"));
+			Log.d("@@##", "obj style vale = " + options.getString("style"));
 			style = (String) options.getString("style");
 		}
-		
+
 		if (options.containsKey("stepSize")) {
-			Log.d("@@##", "obj2 stepSize vale = "+options.get("stepSize"));
+			Log.d("@@##", "obj2 stepSize vale = " + options.get("stepSize"));
 			stepSize = options.getDouble("stepSize").floatValue();
 		}
 	}
-	
+
 	// Methods
 
-	@Kroll.setProperty @Kroll.method
-	public void setRating(float val)
-	{
+	@Kroll.setProperty
+	@Kroll.method
+	public void setRating(float val) {
 		rating = val;
 	}
 
-	@Kroll.getProperty @Kroll.method
-	public float getRating()
-	{
+	@Kroll.getProperty
+	@Kroll.method
+	public float getRating() {
 		return rating;
 	}
 
-	@Kroll.setProperty @Kroll.method
-	public void setIsIndicator(boolean val)
-	{
+	@Kroll.setProperty
+	@Kroll.method
+	public void setIsIndicator(boolean val) {
 		isIndicator = val;
 	}
 
-	@Kroll.getProperty @Kroll.method
-	public boolean getIsIndicator()
-	{
+	@Kroll.getProperty
+	@Kroll.method
+	public boolean getIsIndicator() {
 		return isIndicator;
 	}
 
-	@Kroll.setProperty @Kroll.method
-	public void setStars(int val)
-	{
+	@Kroll.setProperty
+	@Kroll.method
+	public void setStars(int val) {
 		stars = val;
 	}
 
-	@Kroll.getProperty @Kroll.method
-	public int getStars()
-	{
+	@Kroll.getProperty
+	@Kroll.method
+	public int getStars() {
 		return stars;
 	}
 
-	@Kroll.setProperty @Kroll.method
-	public void setStyle(String val)
-	{
+	@Kroll.setProperty
+	@Kroll.method
+	public void setStyle(String val) {
 		style = val;
 	}
 
-	@Kroll.getProperty @Kroll.method
-	public String getStyle()
-	{
+	@Kroll.getProperty
+	@Kroll.method
+	public String getStyle() {
 		return style;
 	}
-	
-	@Kroll.setProperty @Kroll.method
-	public void setStepSize(float val)
-	{
+
+	@Kroll.setProperty
+	@Kroll.method
+	public void setStepSize(float val) {
 		stepSize = val;
 	}
 
-	@Kroll.getProperty @Kroll.method
-	public float getStepSize()
-	{
+	@Kroll.getProperty
+	@Kroll.method
+	public float getStepSize() {
 		return stepSize;
 	}
-	
+
 }

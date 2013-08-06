@@ -8,32 +8,22 @@
 var win = Ti.UI.createWindow({
 	backgroundColor:'white'
 });
-var label = Ti.UI.createLabel();
-win.add(label);
+
 win.open();
 
-// TODO: write your module tests here
 var ratingbar = require('titutorial.ratingbar');
 Ti.API.info("module is => " + ratingbar);
 
-label.text = ratingbar.example();
+var proxy = ratingbar.createRatingBar({
+	top : 100,
+	backgroundColor : "#fff",
+	rating : 2,
+	stars : 6,
+	stepSize : 1.5,
+	isIndicator : false
+});
+win.add(proxy);
 
-Ti.API.info("module exampleProp is => " + ratingbar.exampleProp);
-ratingbar.exampleProp = "This is a test value";
-
-if (Ti.Platform.name == "android") {
-	var proxy = ratingbar.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
-	});
-
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
-}
-
+proxy.addEventListener('change', function(e) {
+	Ti.API.info("@@## rating  = " + e.rating);
+});

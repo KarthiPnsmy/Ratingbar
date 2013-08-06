@@ -44,6 +44,13 @@ public class RatingbarModule extends KrollModule
 		return "hello world";
 	}
 	
+	@Kroll.method
+	public boolean isGAvail()
+	{
+		Log.d(TAG, "example called");
+		return true;
+	}
+	
 	// Properties
 	@Kroll.getProperty
 	public String getExampleProp()
