@@ -7,10 +7,10 @@ A RatingBar is an extension that shows a rating in stars. The user can touch/dra
 ## Accessing the ratingbar Module
 
 To access this module from JavaScript, you would do the following:
-
-	var ratingBar = require("titutorial.ratingbar");
-
-The ratingBar variable is a reference to the Module object.
+```javascript
+var ratingbar = require("titutorial.ratingbar");
+```
+The ratingbar variable is a reference to the Module object.
 
 ## Reference
 
@@ -49,7 +49,7 @@ isIndicator - Must be a boolean value, either "true" or "false".
 Listener to be called when the rating changes(event.rating will give selected rating value)
 
 ## Usage
-
+```javascript
 var win = Ti.UI.createWindow({
 	backgroundColor : "#fff",
 	layout : "vertical"
@@ -94,7 +94,7 @@ var ratingBar2 = ratingbar.createRatingBar({
 win.add(ratingBar2);
 
 win.open();
-
+```
 
 ## Author
 

@@ -8,9 +8,9 @@ A RatingBar is an extension that shows a rating in stars. The user can touch/dra
 
 To access this module from JavaScript, you would do the following:
 
-	var ratingBar = require("titutorial.ratingbar");
+	var ratingbar = require("titutorial.ratingbar");
 
-The ratingBar variable is a reference to the Module object.
+The ratingbar variable is a reference to the Module object.
 
 ## Reference
 
