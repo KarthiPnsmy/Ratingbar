@@ -96,9 +96,11 @@ win.add(ratingBar2);
 win.open();
 ```
 
-## Author
+## Authors
 
 Karthi Ponnusamy - karthi.nkl@gmail.com
+
+Prakash Muthu - prakashmca.m@gmail.com
 
 ## License
 
