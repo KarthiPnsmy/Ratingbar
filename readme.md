@@ -4,6 +4,9 @@
 
 A RatingBar is an extension that shows a rating in stars. The user can touch/drag to set the rating when using RatingBar.
 
+![Rating Screenshot](https://github.com/railskarthi/Ratingbar/blob/master/screens/screenshot1.png?raw=true "Ratingbar Screen")
+![Rating Screenshot2](https://github.com/railskarthi/Ratingbar/blob/master/screens/screenshot2.png?raw=true "Ratingbar Screen2")
+
 ## Accessing the ratingbar Module
 
 To access this module from JavaScript, you would do the following:
