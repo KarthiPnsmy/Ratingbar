@@ -21,26 +21,26 @@ This module converts native Android ratingbar widget to Titanium component. (htt
 ### setRating(rating)
 
 Sets the rating (the number of stars filled).
-**Parameters**
-rating - The rating to set (Must be a floating point value). 
+
+_**rating**_ - The rating to set (Must be a floating point value). 
 
 ### setStepSize(stepSize)
 
 Sets the step size (granularity) of this rating bar.
-**Parameters**
-stepSize - The step size of this rating bar. For example, if half-star granularity is wanted, this would be 0.5 (Must be a floating point value).
+
+_**stepSize**_ - The step size of this rating bar. For example, if half-star granularity is wanted, this would be 0.5 (Must be a floating point value).
 
 ### setStars(stars)
 
 The number of stars (or rating items) to show
-**Parameters**
-stars - Must be an integer value, such as "100". 
+
+_**stars**_ - Must be an integer value, such as "100". 
 
 ### setIsIndicator(isIndicator)
 
 Whether this rating bar is an indicator (and non-changeable by the user).
-**Parameters**
-isIndicator - Must be a boolean value, either "true" or "false". 
+
+_**isIndicator**_ - Must be a boolean value, either "true" or "false". 
 
 ##Event Listeners
 
