@@ -103,7 +103,7 @@ win.open();
 
 Karthi Ponnusamy - karthi.nkl@gmail.com
 
-Prakash Muthu - prakashmca.m@gmail.com
+Prakash Muthaian - prakashmca.m@gmail.com
 
 ## License
 
