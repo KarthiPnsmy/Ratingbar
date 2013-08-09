@@ -1,29 +1,48 @@
-// This is a test harness for your module
-// You should do something interesting in this harness 
-// to test out the module and to provide instructions 
-// to users on how to use it by example.
-
-
-// open a single window
 var win = Ti.UI.createWindow({
 	backgroundColor:'white'
 });
 
-win.open();
-
 var ratingbar = require('titutorial.ratingbar');
-Ti.API.info("module is => " + ratingbar);
 
-var proxy = ratingbar.createRatingBar({
-	top : 100,
-	backgroundColor : "#fff",
+/*
+ * Dynamic rating bar
+ */
+var ratingBar1 = ratingbar.createRatingBar({
+	top : 50,
+	left:15,
 	rating : 2,
 	stars : 6,
 	stepSize : 1.5,
 	isIndicator : false
 });
-win.add(proxy);
+win.add(ratingBar1);
 
-proxy.addEventListener('change', function(e) {
-	Ti.API.info("@@## rating  = " + e.rating);
+var ratingValue = Ti.UI.createLabel({
+	text : 'Rating Value : '+ratingBar1.getRating(),
+	color : '#000',
+	font : {fontSize:'20dp'},
+	height : Ti.UI.SIZE,
+	width : Ti.UI.SIZE,
+	top : 45,
+	textAlign : 'center'
 });
+win.add(ratingValue);
+
+ratingBar1.addEventListener('change', function(e) {
+	ratingValue.text = "Rating Value : "+e.rating.toString();
+});
+
+/*
+ * Static rating bar
+ */
+var ratingBar2 = ratingbar.createRatingBar({
+	top : 20,
+	left:15,
+	rating : 3,
+	stars : 5,
+	stepSize : 1,
+	isIndicator : true
+});
+win.add(ratingBar2);
+
+win.open();

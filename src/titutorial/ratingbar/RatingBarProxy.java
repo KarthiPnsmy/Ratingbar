@@ -142,11 +142,20 @@ public class RatingBarProxy extends TiViewProxy {
 	}
 
 	// Methods
+	/*
+	@Kroll.method
+	public void setStaticRating(float val) {
+		ratingBar.setRating(val);
+		Log.i("@@##", "setStaticRating = " + val);
+	}
+	*/
 
 	@Kroll.setProperty
 	@Kroll.method
 	public void setRating(float val) {
 		rating = val;
+		//ratingBar.setRating(val);
+		//Log.i("@@##", "setRating = " + val);
 	}
 
 	@Kroll.getProperty
