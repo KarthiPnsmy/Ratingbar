@@ -1,14 +1,23 @@
 var win = Ti.UI.createWindow({
-	backgroundColor:'white'
+	backgroundColor:'#fff',
+	layout : 'vertical'
 });
 
 var ratingbar = require('titutorial.ratingbar');
+
+var setRatingButton = Ti.UI.createButton({
+	title : 'Set rating 6',
+	height : '40dp',
+	width : Ti.UI.SIZE,
+	top : '30dp'
+});
+win.add(setRatingButton);
 
 /*
  * Dynamic rating bar
  */
 var ratingBar1 = ratingbar.createRatingBar({
-	top : 50,
+	top : '30dp',
 	left:15,
 	rating : 2,
 	stars : 6,
@@ -23,7 +32,7 @@ var ratingValue = Ti.UI.createLabel({
 	font : {fontSize:'20dp'},
 	height : Ti.UI.SIZE,
 	width : Ti.UI.SIZE,
-	top : 45,
+	top : '30dp',
 	textAlign : 'center'
 });
 win.add(ratingValue);
@@ -36,7 +45,7 @@ ratingBar1.addEventListener('change', function(e) {
  * Static rating bar
  */
 var ratingBar2 = ratingbar.createRatingBar({
-	top : 20,
+	top : '30dp',
 	left:15,
 	rating : 3,
 	stars : 5,
@@ -44,5 +53,9 @@ var ratingBar2 = ratingbar.createRatingBar({
 	isIndicator : true
 });
 win.add(ratingBar2);
+
+setRatingButton.addEventListener('click', function() {
+	ratingBar1.setRating(6.0);
+});
 
 win.open();

@@ -38,7 +38,7 @@ public class RatingBarProxy extends TiViewProxy {
 	// Standard Debugging variables
 	private boolean hasListenerChange = false;
 	private static final String TAG = "RatingBarProxy";
-	RatingBar ratingBar;
+	RatingBar ratingBar = null;
 
 	private class ExampleView extends TiUIView {
 		public ExampleView(final TiViewProxy proxy) {
@@ -57,11 +57,11 @@ public class RatingBarProxy extends TiViewProxy {
 			int resId_raingBarHolder = -1;
 			int resId_ratingBar = -1;
 
-			System.out.println("raingBarWrapper 1rresId_raingBarHolder =" + resId_raingBarHolder);
+			//System.out.println("raingBarWrapper 1rresId_raingBarHolder =" + resId_raingBarHolder);
 			resId_raingBarHolder = resources.getIdentifier("raingbar_layout", "layout", packageName);
 			resId_ratingBar = resources.getIdentifier("ratingbar_default","id", packageName);
-			System.out.println("raingBarWrapper resId_raingBarHolder =" + resId_raingBarHolder);
-			System.out.println("raingBarWrapper resId_ratingBar = " + resId_ratingBar);
+			//System.out.println("raingBarWrapper resId_raingBarHolder =" + resId_raingBarHolder);
+			//System.out.println("raingBarWrapper resId_ratingBar = " + resId_ratingBar);
 
 			LayoutInflater inflater = LayoutInflater.from(getActivity());
 			raingBarWrapper = inflater.inflate(resId_raingBarHolder, null);
@@ -82,7 +82,7 @@ public class RatingBarProxy extends TiViewProxy {
 							props.put("rating", rating);
 							proxy.fireEvent("change", props);
 						}
-						Log.d("rating", "rating value = " + rating);
+						//Log.d("rating", "rating value = " + rating);
 					}
 			});
 			setNativeView(raingBarWrapper);
@@ -115,47 +115,37 @@ public class RatingBarProxy extends TiViewProxy {
 		super.handleCreationDict(options);
 
 		if (options.containsKey("rating")) {
-			Log.d("@@##", "obj rating vale = " + options.get("rating"));
+			//Log.d("@@##", "obj rating vale = " + options.get("rating"));
 			rating = options.getDouble("rating").floatValue();
 		}
 
 		if (options.containsKey("stars")) {
-			Log.d("@@##", "obj stars vale = " + options.get("stars"));
+			//Log.d("@@##", "obj stars vale = " + options.get("stars"));
 			stars = options.getInt("stars");
 		}
 		if (options.containsKey("isIndicator")) {
-			Log.d("@@##",
-					"obj isIndicator vale = "
-							+ options.getBoolean("isIndicator"));
+			//Log.d("@@##","obj isIndicator vale = "+ options.getBoolean("isIndicator"));
 			isIndicator = (Boolean) options.getBoolean("isIndicator");
 		}
 
 		if (options.containsKey("style")) {
-			Log.d("@@##", "obj style vale = " + options.getString("style"));
+			//Log.d("@@##", "obj style vale = " + options.getString("style"));
 			style = (String) options.getString("style");
 		}
 
 		if (options.containsKey("stepSize")) {
-			Log.d("@@##", "obj2 stepSize vale = " + options.get("stepSize"));
+			//Log.d("@@##", "obj2 stepSize vale = " + options.get("stepSize"));
 			stepSize = options.getDouble("stepSize").floatValue();
 		}
 	}
-
-	// Methods
-	/*
-	@Kroll.method
-	public void setStaticRating(float val) {
-		ratingBar.setRating(val);
-		Log.i("@@##", "setStaticRating = " + val);
-	}
-	*/
 
 	@Kroll.setProperty
 	@Kroll.method
 	public void setRating(float val) {
 		rating = val;
-		//ratingBar.setRating(val);
-		//Log.i("@@##", "setRating = " + val);
+		if(ratingBar != null){
+			ratingBar.setRating(rating);
+		}
 	}
 
 	@Kroll.getProperty
