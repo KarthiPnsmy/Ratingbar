@@ -98,6 +98,13 @@ win.add(ratingBar2);
 
 win.open();
 ```
+## Using Custom Resources
+
+If you want to use custom resource in your App you can override default resource. For that you have to place your 
+custom resource inside **app_root/platform/android/res** or **app_root/modules/android/titutorial.ratingbar/0.1/platform/android/res**
+in the same name. 
+
+For example, if you want to override **star_on** image you have to override your custom image with the same name **star_on.png**
 
 ## Authors
 
