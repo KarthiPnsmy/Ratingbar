@@ -68,10 +68,11 @@ public class RatingBarProxy extends TiViewProxy {
 			ratingBar = (RatingBar) raingBarWrapper.findViewById(resId_ratingBar);
 			setNativeView(raingBarWrapper);
 
-			ratingBar.setRating(rating);
 			ratingBar.setNumStars(stars);
-			ratingBar.setIsIndicator(isIndicator);
 			ratingBar.setStepSize(stepSize);
+			ratingBar.setRating(rating);
+			ratingBar.setIsIndicator(isIndicator);
+			
 
 			ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
